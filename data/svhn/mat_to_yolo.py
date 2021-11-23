@@ -1,6 +1,7 @@
 import h5py
 import cv2
 
+
 def get_name(index, hdf5_data):
     name_ref = hdf5_data['/digitStruct/name'][index].item()
     return ''.join([chr(v[0]) for v in hdf5_data[name_ref]])
@@ -24,21 +25,20 @@ if __name__ == "__main__":
             im = cv2.imread('train/'+img_name)
             h, w, c = im.shape
             arr = get_bbox(i, hdf5_data)
-            
 
-            fp = open('train/'+img_name.replace('.png','.txt'), 'w')
+            fp = open('train/'+img_name.replace('.png', '.txt'), 'w')
             arr_l = len(arr['label'])
             for idx in range(arr_l):
                 label = arr['label'][idx]
-                if label==10:
+                if label == 10:
                     label = 0
                 _l = arr['left'][idx]
                 _t = arr['top'][idx]
                 _w = arr['width'][idx]
-                if (_l+_w)>w:
+                if (_l + _w) > w:
                     _w = w-_l-1
                 _h = arr['height'][idx]
-                if (_t+_h)>h:
+                if (_t + _h) > h:
                     _h = h-_t-1
                 # print(w, h, _l, _t, _w , _h)
                 x_center = (_l + _w/2)/w
@@ -46,10 +46,9 @@ if __name__ == "__main__":
                 bbox_width = _w/w
                 bbox_height = _h/h
                 # print(label, x_center, y_center, bbox_width, bbox_height)
-                s = str(label)+' '+str(x_center)+' '+str(y_center)+' '+str(bbox_width)+' '+str(bbox_height)
-                if idx!=(arr_l-1):
+                s = str(label) + ' ' + str(x_center) + ' '+str(y_center)
+                + ' ' + str(bbox_width) + ' ' + str(bbox_height)
+                if idx != (arr_l - 1):
                     s += '\n'
                 fp.write(s)
             fp.close()
-
-                
