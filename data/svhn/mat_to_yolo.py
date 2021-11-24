@@ -46,8 +46,7 @@ if __name__ == "__main__":
                 bbox_width = _w/w
                 bbox_height = _h/h
                 # print(label, x_center, y_center, bbox_width, bbox_height)
-                s = str(label) + ' ' + str(x_center) + ' '+str(y_center)
-                + ' ' + str(bbox_width) + ' ' + str(bbox_height)
+                s = str(label) + ' ' + str(x_center) + ' ' + str(y_center) + ' ' + str(bbox_width) + ' ' + str(bbox_height)
                 if idx != (arr_l - 1):
                     s += '\n'
                 fp.write(s)
